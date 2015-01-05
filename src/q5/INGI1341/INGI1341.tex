@@ -1184,11 +1184,25 @@ PPP est enfaite en famille de trois protocol :
 
 PPP frame utilise le bit/caractère stuffing, supporte variable length (même si LCP négocie la MAX size).
 
-\subsubsection{Ethernet}
-TODO changement + slot time
+De nos jours le PPP est utilisé dans la plus part des \textit{Asymmetric Digital Subscriber Lines} (ADSL) remplacant soit ATM soit Ethernet. Utilisé pour l'authentification des utilisateurs.
 
-\paragraph{Hubs}
-Les hosts peuvent être directement relié à un Ethernet hubs.
+\subsubsection{Ethernet}
+
+Troisq décisions prises lors de la définitions des spécifications Ethernet:
+\begin{enumerate}
+\item \textbf{Vitesse}: Connexion Ethernet locale à 10 Mbps
+\item \textbf{Slot time}: Durée du \textit{slot time} est de 51.2 $\mu$s. Long \textit{slot time} permet les communications longue distance mais diminue la taille maximum d'une frame.
+\item \textbf{Frame format}: Frame composé de 5 champs
+\begin{enumerate}
+\item L'addresse de destination
+\item L'addresse de la source
+\item Type de network layer (\textit{EtherType})
+\item Payload (maximum 1500 bytes)
+\item CRC-Check
+\end{enumerate}
+\end{enumerate}
+
+\paragraph{Hubs} Un hub est un relay du physical layer qui recoit un signal sur une de ses interface et le transmets sur toute les autres interfaces. Les hosts peuvent être directement relié à un Ethernet hubs.
 \subparagraph{Complexe network hub} La topologie doit être un tree et le délai entre
 deux host ne peut pas être plus long que 51.2ms (slot time).
 
