@@ -1153,17 +1153,22 @@ plutôt qu'un autre via le local-pref en définissant les valeurs dans l'import 
 Certaines routing policies peuvent interférer entre elles et aboutir (en théorie),
 à des ping-pong infini.
 
-\paragraph{ } La convergence des BGP n'esy pas toujours garanti et verifier la
-convergence global est un problème NP-complet.
+\paragraph{ } La convergence des BGP n'ety pas toujours garantie et verifier la
+convergence globale est un problème NP-complet (un opérateur réseau peut difficilement prévoir quel chemin sera choisi).
 
-\paragraph{Guideline to guarantee BGP convergence}
+\paragraph{Guideline to guarantee BGP convergence} Sous les deux conditions  suivantes la convergence BGP est garantie:
 \begin{enumerate}
     \item Le graph est \textit{customer->provider} est acyclique
-    \item AS préfére une route reçue d'un customer plutôt qu'une shared-cost
+    \item AS préfére une route reçue d'un customer plutôt qu'une shared-cost ou d'un provider
 \end{enumerate}
 
-\subsubsection{Structure global internet}
-TODO page 209
+\paragraph{Structure global internet} Nous pouvons donc diviser les domaines d'Internet en 4 catégories
+\begin{enumerate}
+\item Le coeur d'internet est composé d'une douzaine d'ISP \textit{Tier-1} (un domaine \textit{Tier-1} n'a pas de provider). \textbf{Shared-cost} avec les autres \textit{Tier-1},
+\item Des ISP nationaux ou continentaux \textit{Tier-2} qui sont clients des \textit{Tier-1}. \textbf{Shared-cost} avec les autres \textit{Tier-2},
+\item Les \textit{Tier-3} sont les domaines stub des entreprises ou de campus universitaires et quelques petits ISP.
+\item Le reste de l'internet
+\end{enumerate}
 
 \subsection{Datalink layer technologie}
 
@@ -1172,9 +1177,9 @@ Protocol dévellopé après me \textit{Serial Line IP} (SLIP) qui a beaucoup de 
 
 PPP est enfaite en famille de trois protocol :
 \begin{enumerate}
-    \item The PPP define framing technique to transport network layer packet
-    \item The \textit{Link Control Protocol} est utilisé pour negociate option and authentification by username/password
-    \item The \textit{Network Control Protocol} est spécifique à chaque network layer protocol
+    \item The PPP definis une technique de "framing" pour transporter les packets du network layer.
+    \item The \textit{Link Control Protocol} (LCP) est utilisé pour négocier les options et pour l'authentification en utilisants des username/password
+    \item The \textit{Network Control Protocol} (NCP) est spécifique à chaque network layer protocol
 \end{enumerate}
 
 PPP frame utilise le bit/caractère stuffing, supporte variable length (même si LCP négocie la MAX size).
