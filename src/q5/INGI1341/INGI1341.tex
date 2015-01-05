@@ -3,6 +3,7 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{graphicx}
+\usepackage{float}
 
 \hypertitle{en}{Computer Networks : Information transfer}{5}{INGI}{1341}
 {Nicolas Houtain\and Benoît Legat}
@@ -1265,11 +1266,45 @@ Durant la création du spanning tree toutes les data frames sont écarté car on
 
 \subsubsection{Virtual LAN}
 
-TODO page 222
+Grace aux Ethernet switch on peut définir des VLAN (\textit{Virtual Lan}). 
+\begin{description}
+\item[VLAN] Un enssemble de ports attaché à un ou plusieurs switch Ethernet.
+\end{description}
+
+Un switch supporte plusieurs VLAN, quand il recoit une frame il le forward sur les ports du même VLAN. Cela utilise un header de 20 bit qui est placé juste apres l'addresse MAC de la source. En plus il y a un PCP (\textit{Priority Code Point}), un code de priorité de 3 bits (0 faible à 7 haut). 
+
 
 \subsubsection{802.11 Wireless networks}
 
-TODO page 223
+Le concept de base: le spectre radio est une ressources limité qui doit être partagé par tous. Le système wifi utilise des bandes radios particulières.
+
+\begin{figure}[H]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Standard & Frequency & Typical throughput & Max bandwith & Range (m) indoor/outdour\\
+\hline
+802.11  &   2.4 GHz & 0.9 Mbps &   2 Mbps & 20/100 \\
+802.11a &   5.0 GHz & 23  Mbps &  54 Mbps & 35/120 \\
+802.11b &   2.4 GHz & 4.3 Mbps &  11 Mbps & 38/140 \\
+802.11g &   2.4 GHz & 19  Mbps &  54 Mbps & 38/140 \\
+802.11n & 2.4/5 GHz & 74  Mbps & 150 Mbps & 70/250 \\
+\hline
+\end{tabular}
+\end{figure}
+
+Deux types de réseau WiFi:
+\begin{itemize}
+\item \textit{independant} ou \textit{adhoc}: ensembles d'appareils communicant entre eux
+\item \textit{infrastructure}: un \textit{access point} relié à un LAN connecté aux autre réseau.
+\end{itemize}
+
+An access point 802.11 est un relay qui opère comme un switch dans le datalink layer. Une frame 802.11 contient jusqu'à 2324 bytes de payload. Trois types de frames: data, ACK/CTS et des frames de gestion.
+
+Parmis les frames de gestion, deux utilisations majeures:
+\begin{enumerate}
+\item \textbf{beacon frame}: contient capacité d'un point d'acces et un SSID (\textit{Service Set Identity}, un string jusqu'a 32 caractères. Si un points n'envois pas de beacon frame, on peut la demander avec une \textit{Probe request} qui demande une \textit{Probe response} en réponse.
+\item Permettre aux stations wifi d'être associé à un points d'access. Quand une station wifi se lance elle demande l'access au points d'access par un \textit{Association request}, et la réponse est une \textit{Association response frame} (si il n'y a pas de sécurité sur le points d'access).
+\end{enumerate}
 
 \biblio
 
