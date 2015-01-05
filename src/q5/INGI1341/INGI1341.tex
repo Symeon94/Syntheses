@@ -1202,13 +1202,6 @@ Troisq décisions prises lors de la définitions des spécifications Ethernet:
 \end{enumerate}
 \end{enumerate}
 
-\paragraph{Hubs} Un hub est un relay du physical layer qui recoit un signal sur une de ses interface et le transmets sur toute les autres interfaces. Les hosts peuvent être directement relié à un Ethernet hubs.
-\subparagraph{Complexe network hub} La topologie doit être un tree et le délai entre
-deux host ne peut pas être plus long que 51.2ms (slot time).
-
-\paragraph{Frame format}
-TODO image page 213
-
 \paragraph{Ethernet service}
 Ethernet network offre un unreliable connectionless service qui supporte unicast, multicast et
 broadcast.
@@ -1216,20 +1209,29 @@ broadcast.
 En pratique il délivre les frames au destinataire avec une \textbf{TRES} grande probabilité,
 et les frames arrivent en séquence.
 
-\paragraph{Fast ethernet}
-TODO page 215
+\paragraph{Hubs} Un hub est un relay du physical layer qui recoit un signal sur une de ses interface et le transmets sur toute les autres interfaces. Les hosts peuvent être directement relié à un Ethernet hubs et les hubs ethernet entre eux peuvent former des réseaux plus large.
 
-\paragraph{Ethernet switches}
-Augmenter la bande passante comme \textit{fast ethernet} n'est pas la seule
-manière d'améliorer les performances d'ethernet LAN, on peut aussi rendre
-les hubs intelligents en devenant des switchs.
+Il ne peut pas y avoir de cycles dans un network hub, vu qu'il s'agit de relais, au risque de foutre en l'air le réseau.
 
-Ceux-ci maintiennent une table de forwading pour les MAC adresses.
+Les collisions sont gerée avec un CSMA/CD.
+
+\subsubsection{Fast Ethernet}
+
+Ethernet est trop lents pour les réseaux actuels, on a défini un nouveau standard: \textit{Fast Ethernet}, avec les caractéristiques suivantes:
+\begin{itemize}
+\item Même format de frame qu'Ethernet (pour rétrocompatibilité)
+\item Minimum frame size reste 512 bits
+\item \textit{Slot time} réduit à 5.12 $\mu$s.
+\item 100 Mbps à la place de 10 Mbps
+\end{itemize}
+
+\subsubsection{Ethernet switches}
+
+Augmenter la bande passante comme \textit{fast ethernet} n'est pas la seule manière d'améliorer les performances d'ethernet LAN, on peut aussi rendre les hubs intelligents en devenant des switchs. Ceux-ci maintiennent une table de forwading pour les MAC adresses.
 
 TODO image page 217
 
-
-\paragraph{MAc adress}
+\paragraph{MAC adress}
 Quand deux host sont sur le même hub/segment ethernet, ils peuvent échanger de
 l'information sans configuration ce qui implique que un switche doit pouvoir
 construire sa table de MAC adresse \textit{automatiquement}.
@@ -1241,16 +1243,16 @@ The \textit{MAC adress learning} algorithm fonctionne bien sur un tree-shaped ne
 sauf que cette topologie est dangereuse si l'un des switchs tombent en panne\ldots
 
 Toutefois, si ce n'est pas un arbre ont peu rapidement tomber dans une boucle infinie
-(si il n'y a pas de RTT ou Hop limit)!
+(si il n'y a pas de RTT ou Hop limit)! Solution: \textit{Spanning Tree Protocol}.
+
+Le \textit{MAC adress learning} permet aux switches d'être plug-and-play. 
 
 \paragraph{Spanning tree protocol}
-Désactive automatiquement des ports pour rester dans une tree-shaped, mais si l'un
-des switchs crash, il y a un autre qui peut prendre le relais.
+Désactive automatiquement des ports pour rester dans une tree-shaped, mais si l'un des switchs crash, il y a un autre qui peut prendre le relais.
 
-Le switch root est celui avec la plus petite MAC adress, ensuite le spanning tree est construit
-pour que chaque switch ait le plus path vers le root.
+Le switch root est celui avec la plus petite MAC adress, ensuite le spanning tree est construit pour que chaque switch ait le plus path vers le root.
 
-Ils utilisent des BPDUs qui contiennent :
+Ils utilisent des frames BPDUs qui contiennent :
 \begin{itemize}
     \item L'identifiant du root
     \item Le coût du path entre le root et celui qui envoit le BPDU
@@ -1258,12 +1260,10 @@ Ils utilisent des BPDUs qui contiennent :
     \item Le nombre de switch port par lequel il est passé
 \end{itemize}
 
-
-Durant la création du spanning tree toutes les data frames sont écarté
-car on ne peut pas garantir l'absence de loop.
+Durant la création du spanning tree toutes les data frames sont écarté car on ne peut pas garantir l'absence de loop.
 
 
-\paragraph{Virtual LAN}
+\subsubsection{Virtual LAN}
 
 TODO page 222
 
