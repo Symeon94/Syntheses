@@ -255,11 +255,17 @@ this is called a \emph{binary exponential back-off}.
 
 \paragraph{CSMA/CA for IEEE 802.11 (WiFi)}
 
-\begin{description}
-  \item[sifs] this is required to switch between upload and download in a router.
-  \item[difs]
-  \item[eifs]
-\end{description}
+The CSMA/CA algorithm will try to avoid collisions by tuning three kinds of timers.
+
+\begin{enumerate}
+  \item $SIFS$: This is the time to wait between the ack of a frame and the response to send.
+  \item $DIFS$: The link has to be idle for $DIFS$ before beeing used.
+  \item $EIFS$: If collision then this is the time to sense the channel before retrying.
+\end{enumerate}
+
+$$SIFS < DIFS < EIFS$$
+
+For the backoff time it must be at least $[0, 7*slotTime]$, and if you sense that the channel become busy, you must freeze the back off timer.
 
 % Network:
 % Datagram: connectionless-> most
@@ -280,14 +286,38 @@ this is called a \emph{binary exponential back-off}.
 
 
 \subsection{Building a network}
-Host and router sending packet.
+
+Networks are composed of two elements:
+\begin{enumerate}
+\item \textbf{Endhost}: A host send and receives packets
+\item \textbf{Router}: A router will forward packets
+\end{enumerate}
+
+The network will send \textit{packets}, it is build over an unreliable datalink layer. There is two possible organisation for the network layer: the \textit{datagram organisation} and the \textit{virtual circuit organisation}.
 
 \subsubsection{The datagram organisation}
 
+The principle of the datagram organisation is that routers calculate what we call \textit{forwarding tables}. Thoses maps between addresses and interfaces in a router. There is two thing to pay attention at when construction such a table:
+
+\begin{enumerate}
+\item \textbf{Black holes}: Black holes are routers with no entry in their \textit{forwarding tables}
+\item \textbf{Loops}: A loop in a network can kill a bandwidth
+\end{enumerate}
+
+\begin{description}
+\item[Data plane] all the protocols and algorithms that are used by hosts and routers to create and process the packets that contain user data.
+\item[Control plane] all the protocols and algorithms that are used to compute the forwarding tables that are installed on all routers inside the networks.
+\end{description}
+
 \paragraph{Computing forwarding tables}
 \begin{enumerate}
-    \item Si on a un \textbf{tree-shapped network} il suffit d'inspecter les packets
-        reçu pour créer sa table de forwarding sans risquer d'avoir de loop
+    \item Si on a un \textbf{tree-shapped network}:
+		\begin{enumerate}
+			\item Un router receives a packet
+			\item If the destination is in its table it forwards the packet on the right interface	
+			\item Else it notes that it can reach the source address from the \textbf{incoming} interface and \textbf{broadcast} the packets over all its other interface.
+		\end{enumerate}
+	
     %TODO page 35
 \end{enumerate}
 
