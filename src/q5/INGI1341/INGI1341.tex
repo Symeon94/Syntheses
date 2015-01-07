@@ -72,24 +72,26 @@ A router only has the 3 layers: Network, Datalink and Physical.
 \end{myexem}
 
 \subsection{Physical Layer}
-The Physical Layer service is provided by
+On appelle l'ensemble des functions et des éléments servant à transporter des bits sur une ligne le \textit{physical layer service}.Trois types de média physique:
+\begin{enumerate}
+  \item \textbf{Cable electrique} twisted pairs or coaxial cables;
+  \item \textbf{Fibre optique} multimode or monomode;
+  \item \textbf{Wireless} laser for point-to-point and radio-based for spread signal (e.g. WIFI).
+\end{enumerate}
+
+Son PDU (\textit{Protocol Data Unit}) est le bit et les termes suivants sont utilisés
 \begin{description}
-  \item[Electrical cable] twisted pairs or coaxial cables;
-  \item[Optical fiber] multimode or monomode;
-  \item[Wireless] laser for point-to-point and radio-based for spread signal (e.g. WIFI).
-\end{description}
-Its PDU is the bit and the following terms are used
-\begin{description}
-    \item[Bit rate] : Expressed in bits/sec
-    \item[Bandwith] : Range of frequency usable
+    \item[Bit rate] : exprimé en bits/sec
+    \item[Bandwith] : intervalle de fréquences utilisable
 \end{description}
 
-It is not perfect (unreliable),
-and for us it is like a black box with these characteristics :
+On définis une transmission comme étant \textit{reliable}, si tout les bits transmis d'une part du liens sont transmis de l'autre côté.
+
+Le Layer physique est \textit{unreliable}, c'est une boite noire avec les caractéristiques suivantes:
 \begin{itemize}
-  \item change the value of a bit;
-  \item deliver more bits than requested;
-  \item deliver fewer bits than requested.
+  \item Des interférences peuvents changer la valeurs des bits,
+  \item On peut perdre des bits,
+  \item On peut gagner des bits en cours de transmission.
 \end{itemize}
 
 \paragraph{Manchester encoding}
