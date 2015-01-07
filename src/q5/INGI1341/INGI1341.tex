@@ -311,14 +311,21 @@ The principle of the datagram organisation is that routers calculate what we cal
 
 \paragraph{Computing forwarding tables}
 \begin{enumerate}
-    \item Si on a un \textbf{tree-shapped network}:
+    \item Si on a un \textbf{tree-shapped network} (only one path between two host):
 		\begin{enumerate}
-			\item Un router receives a packet
+			\item A router receives a packet
 			\item If the destination is in its table it forwards the packet on the right interface	
 			\item Else it notes that it can reach the source address from the \textbf{incoming} interface and \textbf{broadcast} the packets over all its other interface.
 		\end{enumerate}
+	Two drawbacks: 
+	\begin{enumerate}
+		\item if network with loop, you will saturate the bandwidth
+		\item If the destination is not in the network, you broadcast the packet all over the network
+	\end{enumerate}
 	
-    %TODO page 35
+	\item \textbf{Source routing} with each node that has an address.
+
+    \textbf{TODO page 35}
 \end{enumerate}
 
 \paragraph{Flat or hierachical adresse}
